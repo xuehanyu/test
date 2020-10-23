@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            {{b}}
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    // vue的初始化过程中， 会让用户传入很多函数，会在不同的时间点被调用
+
+    // 生命周期中都会有this，指当前实例  生命周期同步执行
+    //  
+
+    Vue.mixin({ // 抽离公共方法 + 编写插件 vuex vue-router this.$router
+        beforeCreate(){
+            console.log('初始化前的公共逻辑')
+        } ,
+        data(){
+            return {
+                aaa: 'xxxxxx'
+            }
+        }
+        // 导致这个方法来源不知道怎么来的，问题vue3.0 compositionApi 来解决这个问题
+    })
+    // ajax应该在哪里放请求（异步请求一定是在mounted之后才会执行）
+    // 
+    let vm = new Vue({
+        el:'#app',
+        beforeCreate() { 
+            //  [beforeCreate, beforeCreate]  一次执行
+            //  初始化之前，没有进行数据观测还没有data，只是调用了初始化父子关系 以及内部的事件 (event, $on, $emeit)
+            // 一般情况下会混入公共逻辑 vue.mixin
+            console.log('beforeCreate', this)
+            
+        },
+
+        created() { // 没有挂载真实dom， 只是初始化数据(_data)，，无法获取dom元素
+            console.log('created',this)
+        },
+
+        // template:'<div>hellow</div>',
+        beforeMount() {  //  在第一次调用render之前执行
+            console.log('beforeMount')
+            
+        },
+
+        // render(h) {
+        //     console.log('render')
+        //     return h('div', this.b) // aaa混入进来的
+        //     //  返回undefined 用空标签替换掉当前的app
+        // },
+ 
+        mounted() {  // 创建真实的dom， 替换掉老得节点， vm.$el 替换掉el
+            // vm.$el  渲染真是的dom
+            console.log('mounted')
+            
+        },
+
+        beforeUpdate() { // 可以做一些合并更新的操作
+            console.log('beforeUpdate')
+            
+        },
+
+        updated() {  // 不要在此生命周期载更新数据了 ，造成死循环
+            console.log('updated')
+            
+        },
+
+        beforeDestroy() {  // 做自定义事件的解绑 $off 可以去取消dom的事件
+            console.log('beforeDestroy')
+            
+        },
+
+        destroyed() {
+            console.log('destroyed')
+            
+        },
+        data(){
+            return {
+                msg: 'hello vue',
+                b: 'bbbbbb'
+            }
+        }
+        
+    })
+    // vm.$destroy()  //  手动销毁 只是移除监听
+
+    setTimeout(()=>{
+        vm.b = '1111'
+    },1000)
+   
+</script>
+</html>

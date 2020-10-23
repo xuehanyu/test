@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-for="(pro, index) in products" ref="list">
+            <img :src="pro" alt="">
+            <button @click="addCart(index)">添加购物车</button>
+        </div>
+        <transition @enter="enter" @after-enter="afterEnter">
+            <div class="animate" v-if="isShow"></div>
+        </transition>
+        <div ref='cart' class="cart">购物车</div>
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                msg: 'hello vue',
+                isShow: false,
+                currentIndex: -1,
+                products:[
+                    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600623647705&di=2185028a15046da182d8a9898e1520f0&imgtype=0&src=http%3A%2F%2Fa2.att.hudong.com%2F36%2F48%2F19300001357258133412489354717.jpg',
+                    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600623673975&di=0b9c9828d3bff6d68c8e5fc9c3c518ce&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F00%2F38%2F01300000241358127660380294217.jpg'
+                ]
+            }
+        },
+        methods: {
+            enter(el, done){
+                console.log('enter')
+                let div = this.$refs.list[this.currentIndex]
+                let { x, y }  = div.getBoundingClientRect()
+                el.style.left = x + 'px'
+                el.style.top = y + 'px'
+                el.style.background = `url(${this.products[this.currentIndex]})`
+                el.style.backgroundSize = '100% 100%'
+
+                let { x: cartX, y: cartY } = this.$refs.cart.getBoundingClientRect()
+                el.style.transform  =  `translate3d(${cartX-x}px, ${cartY-y}px,0) scale(0,0)`
+                el.addEventListener('transitionend', done)
+            },
+            afterEnter(el){
+                this.isShow = false
+            },
+            addCart(index){
+                console.log(index)
+                this.isShow = true
+                this.currentIndex = index
+            }
+        },
+    })
+</script>
+<style>
+    img{
+        width: 200px;
+        height: 200px;
+    }
+    .cart{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: red;
+        height: 50px;
+        width: 50px;
+    }
+    .animate{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        transition: 1s linear;
+    }
+</style>
+</html>

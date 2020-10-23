@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #btn{
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <button id='btn'>快速点击</button>
+    <script>
+        let btn = document.getElementById('btn')
+
+        function logger(){
+            console.log('logger')
+        }
+        function debounce(func, wait , immediate){  // 第一次也触发
+            let timeout 
+            return function(){
+                if(timeout) clearTimeout(timeout)
+                if(immediate && !timeout) func.apply(this, arguments)
+                timeout = setTimeout(()=>{
+                    func.apply(this, arguments)
+                    timeout = null
+                }, wait)
+            }
+        }
+        // 第三个参数表示首次触发 immediate
+        btn.addEventListener('click', debounce(logger, 1000, true))
+    </script>
+</body>
+</html>

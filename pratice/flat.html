@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //  针对展开一层的数组
+    let arr = [1, 2, [80, 90], 3, 4, [5, 6], 7]
+
+    console.log(arr.flat()) // 默认展开一层数据
+
+    //  等效于 
+    let result = arr.reduce((pre, cur, index) => pre.concat(cur), [])
+    // 使用扩展运算符...
+    let res = [].concat(...arr)
+    console.log(res)
+
+
+    //  展开无限层的数组
+    let arr1 = [1, 2, [6, [7, 8]]]
+    function flatDep(arr, d = 1) {
+        return d > 0 ? arr.reduce((pre, cur) => pre.concat(Array.isArray(cur) ? flatDep(cur, d - 1) : cur), [])
+            : arr
+    }
+    console.log(flatDep(arr1, 2))
+
+
+    // for Each 深度遍历
+    function myFlat(arr = [], depth = 1) {
+        let result = [];
+        (function flat(arr, depth) {
+            // forEach 会自动去除数组空位,, for of 不能去除空数组空位，需要手动去除
+            arr.forEach(item => {
+                if (Array.isArray(item) && depth > 0) {
+                    flat(item, depth - 1)
+                } else {
+                    result.push(item)   // item !== void 0 
+                }
+            });
+        })(arr, depth)
+        return result
+    }
+
+    console.log(myFlat(arr1, 2))
+
+
+
+    // 利用 toString() 只使用数字元素
+    function flat1(arr) {
+        return arr.toString().split(',').map(item => +item)
+    }
+    console.log(flat1([1, 2, [6, [7, 8]]]))
+
+</script>
+
+</html>

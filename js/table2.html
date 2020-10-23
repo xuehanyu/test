@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <style>
+        .table{
+            width: 450px;
+            box-sizing: border-box;
+        }
+        .tr{
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .t-head, .t-body{
+            width: 450px;
+            box-sizing: border-box;
+        }
+        .th, .td{
+            width: 150px;
+            box-sizing: border-box;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rowspan{
+            position: absolute;
+            top: 0;
+            left: 150px;
+            height: 100px;
+        }
+        .th, .td{
+            border: 1px solid #ccc;
+        }
+        .th, .td-1{
+            border-bottom: none;
+        }
+        .th-1, .th-2, .td-1, .td-2{
+            border-right: none;
+        }
+        .td-absolut{
+            position: absolute;
+            left: 300px;
+            border-right: 1px solid #ccc;
+            border-left: none;
+            box-sizing: border-box;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="table">
+        <div class="t-head">
+            <div class="tr">
+                <div class="th th-1">科目</div>
+                <div class="th th-2">校区排名</div>
+                <div class="th th-3">报考班型</div>
+            </div>    
+        </div>
+        <div class="t-body">
+            <div class="tr">
+                <div class="td td-1">数学</div>
+                <div class="td rowspan">20</div>
+                <div class="td td-1 td-absolut">精进班</div>
+            </div>
+            <div class="tr">
+                <div class="td td-2">语文</div>
+                <div class="td td-2 td-absolut">行远班</div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+</html>

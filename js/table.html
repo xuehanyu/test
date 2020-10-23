@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <style>
+        .table{
+            display: flex;
+            flex-direction: column;
+            border-collapse: collapse;
+        }
+        .head .t-head{
+            display: flex;
+            flex-direction: row;
+            border-bottom: none;
+        }
+        .t-head{
+            width: 604px;
+        }
+        .th, .td{
+            width: 200px;
+            /* border: 1px solid #ccc; */
+            border-collapse: collapse;
+            text-align: center;
+            border-top: none;
+            border-left:none;
+        }
+        .rowspan{
+            height: 100%;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            /* border-bottom: 1px solid #ccc; */
+        }
+        .body{
+            display: flex;
+            flex-direction: row;
+        }
+        .t-head, .td, .tr, .th{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="table">
+        <div class="head">
+            <div class="t-head">
+                <div class="th">科目</div>
+                <div class="th">校区排名</div>
+                <div class="th">可报班型</div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="td">
+                <div class="tr">数学</div>
+                <div class="tr"> 语文</div>
+                <div class="tr">英语</div>
+            </div>
+            <div class="td">
+                <div class="tr rowspan" >20</div>
+            </div>
+            <div class="td">
+                <div class="tr" >行远班</div>
+                <div class="tr">精进班</div>
+                <div class="tr"> 精进班</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

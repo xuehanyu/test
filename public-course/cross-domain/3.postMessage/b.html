@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        window.onmessage = function(e){
+            console.log(e.data,'b.html')
+
+            // 从哪来的
+            e.source.postMessage('哈哈哈哈哈哈', e.origin)
+            //e.origin哪个源
+        }
+    </script>
+</body>
+</html>

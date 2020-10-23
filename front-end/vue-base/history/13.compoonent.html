@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <my-component></my-component>
+
+    
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    // 组件有生命周期， 组件分为全局组件、局部组件
+    // 组件 为什么要组件化开发， 我们可以抽离组件实现复用效果
+    //  可以组件级别更新 给每一个组件都添加一个watcher
+
+    //  能抽离成单个组件就尽量抽离， 可以减少更新（独立）
+
+    // 组件其实就是一个对象
+    //  组件的实例化过程 回通过当前传入的对象 创建一个实例出来
+
+    // 将当前组件相关的html、js、css放在一起
+    // 第二个参数传入的是一个对象，内部也将构造一个子类 通过 Vue.extend()
+    let Ctor = Vue.extend({
+        template:'<h1>{{msg}}</h1>',
+        data(){
+            return {
+                msg: 'hello component111'
+            }
+        }
+    })
+    console.log(new Ctor().$mount(),'Ctor11')  // 返回是一个子的构造器
+    
+    // 可以手动挂载组件
+    document.body.appendChild(new Ctor().$mount().$el)
+
+    Vue.component('my-component',Ctor )
+
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                msg: 'hello vue'
+            }
+        }
+    })
+</script> 
+</html>

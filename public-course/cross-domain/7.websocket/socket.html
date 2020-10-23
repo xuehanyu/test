@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>    
+        // 高级api 不兼容 socket.io(一般使用该库)
+        let socket = new WebSocket('ws://localhost:5000');
+        socket.onopen = function(){
+            socket.send('Love You')
+        }
+        socket.onmessage = function(e){
+            console.log(e.data)
+        }
+    </script>
+</body>
+</html>

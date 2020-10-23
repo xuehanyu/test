@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <span v-bind:title="message">
+            鼠标悬浮
+        </span>
+
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        //  vue中的渲染方式 render方法 -> template（将template编译成render方法） -> 会采用外部的模板，自己传入的#app 
+        // template:'<p>helloooooo</p>',
+        // render(h){
+        //     return h('p', 'j990')
+        // },
+        data(){
+            return {
+                msg: 'hello vue',
+                message: '页面加载于 ' + new Date().toLocaleString()
+
+            }
+        }
+    })
+
+    // vue 响应式， 渐进式框架
+    //  自己的核心（所谓的响应） =》 （开发项目很大，在核心基础上加其他功能）vue的组件开发 =》 
+    // （页面很多可以拆分页面，用一些工具，通过前端方式路由跳转）vue-router => （组件通信） vuex  =>   
+    // （一套流程之后，项目庞大，构建起来不容易）vue-cli   一些列变成渐进式框架，可以选择使用  
+
+    //  什么是库， 什么事框架（看谁调用谁）
+    //  jquery为例, 拥有很多方法，组成一个完整的功能，通过这些功能实现我们自己的方法（主动，手动调用库中的方法阿）
+    //  框架， 我们只需要将特定代码 放到特定位置上， 框架会帮我们调用（被动）
+
+
+    //  mvc， mvvm
+    // 传统的mvc在后端开发， model（数据库中的数据）， view（前端页面）， controller（后端控制器）  不是双向的
+    // 用户操作页面，发送到后端的路由系统 -》 后端的控制器（拿取数据） -》将数据获取到返回页面
+
+    //  前端将view 拆分成mvvm 双向绑定
+    // model（js的数据）   viewmodel（试图模型，vue主要就是实现的这部分功能）、 view前端页面
+    //  可以把数据挂载在试图模型上，他会自动将数据显示在前端页面上，当页面变化，他会自动监控页面的变化，更新试图模型上的数据
+    // 不需要用户手动操作dom， vue基本依赖数据驱动
+
+</script>
+</html>

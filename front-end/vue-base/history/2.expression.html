@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 当前这个表达式，最终会被编译成函数 _xxx(msg==='hello'? true:false) -->
+        {{1+1}}
+        <!-- 不能放js语法，因为最终会将返回值传递给函数 -->
+        {{msg}}
+        <!-- 函数返回结果 -->
+        {{arr}}
+    </div>
+</body>
+<script  src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                // 1.响应式规则
+                //  会递归的去循环vue中的属性（浪费性能），会给每个属性都增加getter和setter，当属性变化时会更新试图
+                // 重写了数组的方法啊，当调用数组方法时会触发更新，也会对数组中的每一项进行了监控
+                //  对象只能监控默认自带属性，新增属性是不生效的
+
+                // 数组的索引 或者 数组的长度发生变化，不会触发试图更新的
+                msg: 'hello vue'  ,
+                arr: [1,2,3]
+            }
+        }
+    })
+// $set, $delete  内部调用的是slice  方法
+</script>
+</html>

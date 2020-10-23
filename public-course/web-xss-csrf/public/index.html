@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评论页面</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+   <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 cold-md-offset-3">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h2>评论页面</h2>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <form onsubmit="addComment(event)">
+                                <div class="form-group"></div>
+                                    <label class="control-label" for="content">内容</label>
+                                    <input type="text" id="content" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="发表" class="btn btn-primary">
+                                    <a class="btn btn-danger" href="/pay.html">去转账</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        // 1，客户端传给服务器，先过滤，先校验
+        // 2, 服务端在做一次过滤
+        // 3，直接在输出的时候过滤
+
+        function encodeHtml(str){
+            return str.replace(/&/g,'&amp;').
+                replace(/"/g,'&quot;').
+                replace(/'/g,'&apos;').
+                replace(/</g,'&lt;').
+                replace(/>/g,'&gt;')
+
+        }
+
+        function addComment(event){ // 发表功能 
+            event.preventDefault();
+            let content = encodeHtml($('#content').val())
+            $.post('/api/addcomment',{content}).then(res=>{
+                console.log('ress', res)
+                if(res.code ===1){  //  有错误去登陆页
+                    location.href = '/login.html'
+                } else{
+                    getList()
+                }  
+            })
+        }
+   
+        function getList(){
+            $.get('/api/list').then(res=>{
+                if(res.code ===0){
+                  let html = ``
+                  res.comments.forEach(ele => {
+                      html +=`<li class="list-group-item">${ele.username} ${ele.content} </li>`
+                  }); 
+                   $('.list-group').html(html)
+                }
+            })
+        }
+
+        getList()
+    </script>
+</body>
+</html>
+    <!-- 微博访问时 会以自己的身份发一条恶意的微博 -->

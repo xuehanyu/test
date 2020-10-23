@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .table{
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            grid-template-rows: 100px 100px 100px 100px;
+        }
+        .gird{
+            background: yellow;
+        }
+        .grid-head{
+            grid-column-start: 1;
+            grid-column-end: 4;
+            background: pink;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            
+        }
+
+        .grid-column{
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 2;
+            grid-row-end: 5;
+            place-self: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="table"> 
+        <div class="gird grid-head head">
+            <div>科目</div>
+            <div>校区排名</div>
+            <div>可报班型</div>
+        </div>
+        <div class="gird">
+            <div>数学</div>
+        </div>
+        <div class="gird grid-column">8</div>
+        <div class="gird">壮志</div>
+        <div class="gird">英语</div>
+        <div class="gird">行远</div>
+        <div class="gird">语文</div>
+        <div class="gird">精进</div>
+    </div>
+</body>
+</html>

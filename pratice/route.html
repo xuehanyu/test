@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端路由</title>
+   
+    
+</head>
+<body>
+    <ul>
+        <li><a href="#/">turn yellow</a></li>
+        <li><a href="#/blue">turn blue</a></li>
+        <li><a href="#/green">turn green</a></li>
+    </ul>
+
+    <button>back</button>
+</body>
+
+<script>
+/*
+*   1、Hash （ http://sherlocked93.club/base/#/page1 ）
+*        location.href : 返回完成的URL  http://sherlocked93.club/base/#/page1
+*        location.hash : 返回url中的 喵部分  #/page1
+*        location.pathname : 返回url中的路径名   /base/
+*        hashchange事件 : 当location.hash发生改变时，将触发这个事件
+*/
+
+
+/*
+*   2、History Api 
+*        history.go(n) : 路由跳转，比如n为2是往前移动2个页面，-2是往后移动两个页面，0刷新页面
+*        history.back() : 路由后退，相当于history（-1） 
+*        history.forward(): 路由前进，相当于history.go(-1) 
+*        history.pushState() : 添加一条路由记录，如果设置跨域网址则报错
+*        history.replaceState() : 替换当前页面的路由历史记录信息
+*        popstate事件 : 当活动的历史记录发生变化，就会出发该事件，再点击浏览器前进后退或者调用上面三个方法的时候也会触发
+*/
+
+class Routers {
+    constructor(){
+        //  以键值对的形式存储路由
+        this.routes = {}
+        //  当前路由的url
+        this.currentUrl = ''
+        // 记录出现过的路由
+        this.history = []
+        this.isBack = false;
+        // 记录当前的路由指针
+        this.currentIndex = this.history.length - 1
+
+        this.refresh = this.refresh.bind(this)
+
+        this.backOff = this.backOff.bind(this)
+
+        window.addEventListener('load', this.refresh, false)
+        window.addEventListener('hashchange', this.refresh, false)
+    }
+    route(path,cb){   //  将path路径与对应的callback函数储存
+        this.routes[path] = cb || function () {}
+    }
+    
+    refresh(){
+        // 获取当前url中的hash路径
+        this.currentUrl = location.hash.slice(1) || '/'
+        if(!this.isBack){
+             //  将当前路由推入到history中进行保存
+            if(this.currentIndex < this.history.length - 1)
+                this.history = this.history.slice(0,this.currentIndex + 1)
+                this.history.push(this.currentUrl)
+                // 指针向前移动
+                this.currentIndex ++ 
+        }
+       
+        // 执行当前的hash路径的callback
+        this.routes[this.currentUrl]()
+        this.isBack = false
+    }
+
+
+
+    refresh() {
+        this.currentUrl = location.hash.slice(1) || '/';
+        if (!this.isBack) {
+        // 如果不是后退操作,且当前指针小于数组总长度,直接截取指针之前的部分储存下来
+        // 此操作来避免当点击后退按钮之后,再进行正常跳转,指针会停留在原地,而数组添加新hash路由
+        // 避免再次造成指针的不匹配,我们直接截取指针之前的数组
+        // 此操作同时与浏览器自带后退功能的行为保持一致
+            if (this.currentIndex < this.history.length - 1)
+                this.history = this.history.slice(0, this.currentIndex + 1);
+            this.history.push(this.currentUrl);
+            this.currentIndex++;
+        }
+        this.routes[this.currentUrl]();
+        console.log('指针:', this.currentIndex, 'history:', this.history);
+        this.isBack = false;
+    }
+    backOff(){
+        this.isBack = true
+        this.currentIndex.length <= 0 
+            ? this.currentIndex = 0
+            : this.currentIndex = this.currentIndex - 1
+        // 随着后退，loaction.hash也应该随着变化
+        location.hash = `#${this.history[this.currentIndex]}`
+        // 执行当前路由对应的回调函数
+        this.routes[this.history[this.currentIndex]]()
+    }
+}
+
+window.Router = new Routers()
+var content = document.querySelector('body')
+var button = document.querySelector('button')
+function changeBgColor(color){
+    content.style.backgroundColor = color
+}
+Router.route('/', function(){
+    changeBgColor('yellow')
+})
+Router.route('/blue', function(){
+    changeBgColor('blue')
+})
+Router.route('/green', function(){
+    changeBgColor('green')
+})
+
+
+button.addEventListener('click',Router.backOff,false)
+
+</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>转账页面</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+   <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 cold-md-offset-3">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h2>
+                                转账页面
+                                <p>用户 <span id="u"></span> </p>
+                                <p>金额 <span id="m"></span> </p>
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <form onsubmit="transfer(event)">
+                                <div class="form-group">
+                                    <label class="control-label" for="target">收款人</label>
+                                    <input type="text" id="target" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="money">金额</label>
+                                    <input type="text" id="money" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="转账" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        function getUserInfo(){
+            $.get('/api/userinfo').then(res=>{
+                if(res.code===1){
+                    location.href = '/login.html'
+                } else {
+                    console.log(res,'0000----')
+                    let { username, money } = res.user
+                    $('#u').html(username)
+                    $('#m').html(money)
+                }
+            })
+
+        }
+        function transfer(event){
+            event.preventDefault();
+           let target = $('#target').val()
+           let money = $('#money').val()
+           $.post('/api/transfer', { target, money }).then(res=>{
+               if(res.code === 0){
+                   getUserInfo()
+               }else{
+                   location.href='/login.html'
+               }
+           })
+        }
+        getUserInfo()
+    </script>
+</body>
+</html>

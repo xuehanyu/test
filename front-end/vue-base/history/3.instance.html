@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+</body>
+<script  src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        // template:'<div>yayayy1a</div>',
+        data(){
+            return {
+                msg: 'hello vue'
+            }
+        }
+    })
+    // vue中实例常见属性
+    // vm.$mount('#app')  // 挂载，如果不传递参数 表示我们需要手动挂载，当渲染完成后哦，会放在vm.$el属性上，
+    // 可以挂载页面的任何地方，以前的写法只能放在app中
+    // document.body.appendChild(vm.$el)
+    console.log(vm.$el,'0000')
+
+    console.log(vm.$options) // 表示用户传入组建实例参数的所有选项， 和 vue中的内置属性，components fileters directives
+
+
+    vm.$watch('msg', function(newValue, oldValue){
+        console.log(newValue, oldValue)
+    })
+
+    setTimeout(()=>{
+        vm.msg ='123'
+        vm.msg ='789'
+        vm.msg ='666'
+        vm.msg ='999'
+    },1000)
+
+    // vm.$data 等价于vm._data
+
+    // vm.$nextTick vm.$set vm.$delete
+</script>
+</html>

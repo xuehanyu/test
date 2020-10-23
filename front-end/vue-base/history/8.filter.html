@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+    
+        {{timer | format('YYYY:MM:DD')}}
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script src="../node_modules/moment/moment.js"></script>
+<script>
+    //  将愿数据进行格式化显示，而不改变愿数据
+    //  方法，计算属性
+    //  做一些时间格式化  加一些货币符号
+    //  全局过滤器、 局部过滤器
+    //  全局过滤器、
+    // Vue.filter('format', function(timer, formatter){
+    //     // 当前this不指向vm实例，只向window
+    //     // formatter 指的 'YYYY:MM:DD'
+    //     console.log(this,timer, formatter, '-------')
+    //     return moment(timer).format(formatter)
+    // })
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                msg: 'hello vue',
+                timer: 1231231231231
+            }
+        },
+        // 局部过滤器
+        filters:{
+            format: function(timer, formatter){
+                console.log(this,'---')
+                return moment(timer).format(formatter)
+            }
+        }
+    })
+</script>
+</html>

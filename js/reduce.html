@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+// Array.prototype.myReduce =  function(fn,prev){
+//     for(let i =0; i<this.length; i++){
+//         if(typeof prev === 'undefined'){
+//             prev = fn(this[i],this[i+1],i+1,this)
+//             i++
+//         } else {
+//             prev = fn(prev,this[i],i, this)
+//         }
+//     }
+//     return prev
+// }
+// let total = [1,2,3,4,5].myReduce((prev,next,currentIndex,arr)=>{
+//     return prev + next 
+// })
+// console.log(total,'09876s')
+// var a = [[1], [2], [3]];
+// var b = [...a];
+// b.shift().shift();
+// console.log(a);
+// Array.prototype.selfMap = function(fn,context){
+//     let arr = Array.prototype.slice.call(this)
+//     return arr.reduce((pre,cur,index) =>{
+//         console.log(pre)
+//         return [...pre, fn.call(context,cur,index,this)]
+//     },[])
+// }
+
+// let result = [1,2,3].selfMap(item  => item * 2)
+// console.log(result)
+
+// Array.prototype.selfFilter = function(fn,context){
+//     let arr = Array.prototype.slice.call(this)
+//     let newArr = []
+//     for(let i=0;i<arr.length;i++){
+//         fn.call(context,arr[i],i,this) && newArr.push(arr[i])
+//     }
+//     return newArr
+// }
+
+// let result = [1,8,2,3,4,5].selfFilter(item => item > 3)
+// console.log(result)
+const selfFlat = function(depth = 1){
+    let arr = Array.prototype.slice.call(this)
+    if(depth === 0) return arr
+    return arr.reduce((pre,cur)=>{
+        if(Array.isArray(cur)){
+            return [...pre, ...selfFlat.call(cur,depth-1)]
+        }else {
+            return [...pre,cur]
+        }
+    },[])
+}
+Array.prototype.selfFlat = selfFlat
+
+let res = [1,2,3,[5,6,[7,8,[9,20,[22,33,[99]]]]]].selfFlat(3)
+console.log(res,'resssssssdfghjk')
+</script>
+</html>

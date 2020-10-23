@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .activeClass222{
+        color:red;
+    }
+</style>
+<body>
+    <div id="app">
+        <!-- 动态绑定样式和绑定属性， 可以放对像和数组两个格式 -->
+        <!-- 事件绑定也是通过指令 -->
+        <!-- 注意fn不可以放在data中，因为data中的this指向并不是vm， 应该放在methods中，这个时候this指向当前vm -->
+        <div @click="fn">点击事件</div>
+
+        <!-- 事件是绑定给元素的，而且内部是原生事件 -->
+        <!-- 指令的修饰符， .stop(冒泡) .prevent(阻止默认行为)、 .self 、.once、 
+            .passive 提高滚动事件的效率 当前没有阻止默认行为 -->
+
+
+            <!-- v-model 双向绑定，语法糖 :value="msg" @input="(e)=>msg = e.target.value" --> 
+        {{msg}}
+        <input type="text" :value="msg" @input="(e)=>msg = e.target.value">
+        <div :class="[isActive? 'activeClass222' : '']">哈哈哈哈哈</div>
+    </div>
+   
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                msg: 'hello vue',
+                // fn: function(){
+                //     console.log(this, '00000')
+                // },
+                isActive: true,
+                // activeClass: 'active',
+                errorClass: 'error'
+            }
+        },
+
+        methods: {
+            // inputChange(e){
+            //     this.msg = e.target.value
+            // }
+            // 调用时，如果添加（），需要手动增加事件元，$event
+            fn(){ // this指向当前vm实例，内部使用了bind的方法进行绑定this，如果再去绑定this，是不生效的
+                console.log(this)
+            }
+        },
+    })
+
+</script>
+
+</html>

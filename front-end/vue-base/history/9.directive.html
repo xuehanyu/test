@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 自定义指令 -->
+        <div v-click-outside="hide">
+            <input type="text" @focus="show">
+            <div v-if="isShow">
+                显示面板
+                时间
+            </div>
+        </div>
+
+        <input type="text"  v-focus>
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        directives:{  // 同样指令中也没有this指向
+             // 默认写成一个函数的话，相当于bind+update
+            // clickOutside(el, bindings, vnode){
+            //     // el当前dom元素，
+            //     // bindings,指令相关的参数，包括表达式，指令...
+            //     //  vnode 虚拟节点，其中context指的是上下文 vm
+
+            //     // 指令也有生命周期，钩子函数
+            //     //  bind 当指令绑定上的时候，会执行一次，
+            //     // inserted 插入到dom中
+            //     //  update 但引用的数据发生变化时会执行一次，
+            //     //  comonentUnpdate、unbind
+            //     document.addEventListener('click', function(e){
+            //         if(!el.contains(e.target)){
+            //             let method = bindings.expression
+            //             // 相当于调用vm.hide
+            //             vnode.context[method]()
+            //         }
+            //     })
+            // }
+
+            clickOutside:{
+                bind(el, bindings, vnode){
+                    console.log(bindings,vnode,'-')
+                    el.handler = function(e){
+                        if(!el.contains(e.target)){
+                            let method = bindings.expression
+                        // 相当于调用vm.hide
+                            vnode.context[method]()
+                        }
+                    }
+                    // 添加操作
+                    document.addEventListener('click', el.handler)
+                },
+                unbind(el){ // 卸载指令
+                    document.removeEventListener('click', el.handler)
+                }
+            },
+
+            focus:{
+                inserted(el,bindings, vnode){
+                    el.focus()
+                }
+            }
+        },
+        data(){
+            return {
+                msg: 'hello vue',
+                isShow: false
+            }
+        },
+        methods: {
+            show(){
+                this.isShow=true
+            },
+
+            hide(){
+                this.isShow = false
+            }
+        },
+    })
+</script>
+</html>

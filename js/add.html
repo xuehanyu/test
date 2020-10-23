@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+</body>
+<script>
+
+function add () {
+    let args = [...arguments];
+    let fn = function(){
+        return add.apply(null, args.concat([...arguments]))
+    } 
+    fn.toString = () => args.reduce((a, b) => a + b)
+    return fn;
+}
+
+console.log(add(1)(2,3,4)(5))
+
+
+
+let value = 1
+Object.defineProperty(window, 'a', {
+    get(){
+        return value ++ 
+    }
+})
+
+if(a===1 && a===2 && a===3){
+    console.log('hello')
+}
+
+
+
+function add(a) {
+    function sum(b) { // 使用闭包
+        a = b ? a + b : a; // 累加
+        return sum;
+    }
+    sum.toString = function() { // 只在最后一次调用
+        return a;
+    }
+    return sum; // 返回一个函数
+}
+
+add(1)              // 1
+add(1)(2)           // 3
+add(1)(2)(3)        // 6
+add(1)(2)(3)(4)    
+
+
+</script>
+
+</html>

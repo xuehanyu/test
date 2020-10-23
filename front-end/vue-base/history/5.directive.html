@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 内置指令 -->
+        <!-- vue中的指令都是以v- 开头 -->
+        <!-- 指令一般都是用来操作dom的，封装作用的， 里边一般是变量 -->
+        <!-- 只渲染一次 -->
+        <div v-once>{{msg}}</div>
+
+        <!--相当于innerHtml xss攻击（获取用户的cookie） 采用可信任的内容，不要将用户的额输入回显到页面 -->
+        <!-- 缺点： 会覆盖自元素 -->
+        <div v-html="img">xxxx</div>
+
+        <!-- v-text 相当于{{}} -->
+
+        <!-- v-if v-else else-if  vue中给我们提供了无意义的标签 template -->
+
+        <!-- v-if 控制dom是否真是存在 -->
+        <!-- v-show 控制dom上的样式 display：none 不能使用在template标签上 -->
+        <!-- 如果用户频繁切换显示隐藏就是用v-show， 如果控制dom是否产生就用v-if（false的情况可以阻止后续的逻辑） -->
+
+        <!-- v-for 循环 字符串 对象 数组 数字 -->
+        <!-- 优先级问题，尽量不要把v-for 和 v-if同时使用， 默认v-for的优先级更高，浪费性能   -->
+    </div>
+</body>
+<script  src="../node_modules//vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                msg: 'hello vue',
+                img: "<img src='xxx'/>"
+            }
+        }
+    })
+</script>
+</html>
