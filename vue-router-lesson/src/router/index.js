@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueRouter from '../vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 
@@ -36,6 +36,22 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+
+//  vue 路由钩子的实现，，回调函数， express框架的逻辑是一样的
+router.beforeEach((to, from, next)=>{
+  console.log(1)
+  setTimeout(()=>{
+    next()
+  }, 1000)
+})
+
+router.beforeEach((to, from, next)=>{
+  console.log(2)
+  setTimeout(() => {
+    next()
+  }, 1000);
 })
 
 export default router
