@@ -1,12 +1,12 @@
 // ES6中的模块化问题  
 //  什么叫模块，只要是一个js文件 他就是一个模块
-//  模块化解决的问题： 命名冲突(命名空间) 采用自执行难函数的方式，解决代码的高内聚，低耦合
+//  模块化解决的问题： 命名冲突(命名空间) 采用自执行函数的方式，解决代码的高内聚，低耦合
 // node中自带的的模块功能   require module.exports  commonjs 规范  
 
-// cmd seaJs  amd requirejs  
-//  umd 统一模块
+// cmd (seaJs)  amd (requirejs )
+//  umd 统一模块 兼容
 
-//  常用的三种： node模块 commonjs规范 (require、module.exports)、  es6模块规范 (exports import) \ esModule umd
+//  常用的三种： node模块 commonjs规范 (require、module.exports)、  es6模块规范 (exports import)  esModule 、 umd
 
 // es6 => node模块，在webpack环境下可以通用
 
@@ -16,27 +16,27 @@
 // 1）可以变量提升，在没定义之前可以直接使用
 // 2）不可以放在作用域中， 只能放到顶层环境
 
-
+console.log(a)
 import { a, b, c } from './a'   //  从导出的对象中一个个取出
 
 import * as obj from './a'   //  将所有导出内容作为obj对象导出，
-
+// 可以通过obj.default中引入默认导出的
 
 setInterval(() => { //每次拿到的是这个变量对应的值，如果这个值变了那么结果会变
     console.log(obj.a, obj.b, obj.c, obj.default)
 }, 1000);
 
-//  默认导出
+//  默认导出，这个obj必须采用export default 才可以拿到
 import obj, { a, b, c } from './a'   //  obj 作为默认导出的值，如果还想倒入其他的，可以在解构赋值
 
 import {a, b, c, default as d } from './a'
+// 重命名可以使用as语法
 
-
-//  export 导出的是接口，变量，   export default 导出的具体的内容， 不能改变其值
+//  export 导出的是接口，变量，   export default 导出的具体的内容，导出的值，即使定时器在改，也不变， 不能改变其值
 //  导入的变量不能修改
 
 
-//  默认import 语法叫静态语法（文件一加载默认会先去家在对应文件）， 
+//  默认import 语法叫静态语法（文件一加载默认会先去加载对应文件）， 
 
 //  动态加载（草案中，提供了import（），可以实现懒加载）
 

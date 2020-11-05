@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+    <canvas  id='canvas'></canvas>
+</body>
+
+<script>
+    // canvas是像素级渲染，依赖分辨率
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    let dpr = window.devicePixelRatio
+    console.log(dpr)
+
+    const { width: cssWidth, height: cssHeight } = canvas.getBoundingClientRect();
+// 根据dpr，设置Canvas的宽高，使1个canvas像素和1个物理像素相等
+console.log(cssWidth, cssHeight)
+canvas.width = dpr * cssWidth;
+canvas.height = dpr * cssHeight;
+console.log(canvas.width, canvas.height)
+// 根据dpr，设置canvas元素的宽高属性
+ctx.scale(dpr,dpr);
+   // ctx.fillStyle = "rgb(200,0,0)";   // 绘制一个实心矩形
+    // ctx.fillRect (0, 0, 55, 50);
+    // ctx.strokeStyle = "rgb(200,0,0)";  //绘制一个矩形边框
+    // ctx.strokeRect(50, 50, 50, 50);
+
+
+
+    //  利用路径绘制一个三角形
+    // ctx.beginPath()
+    // ctx.moveTo(10,10)  // 设置起点
+    // ctx.lineTo(100, 10)
+    // ctx.lineTo(100,100)
+    // // ctx.closePath()
+    // // ctx.stroke()
+    // ctx.fill()  //  所有没有闭合的形状都会自动闭合，所以不需要调用closePath， 但是stroke不会自动闭合
+
+    // 绘制笑脸
+    // ctx.beginPath();
+    // ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // 绘制
+    // ctx.moveTo(110, 75);
+    // ctx.arc(75, 75, 35, 0, Math.PI, false);   // 口(顺时针)
+    // ctx.moveTo(65, 65);
+    // ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // 左眼
+    // ctx.moveTo(95, 65);
+    // ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // 右眼
+    // ctx.stroke();
+    // lineWidth = 20
+
+    // // 透明度
+    // ctx.fillStyle = '#FD0';
+    // ctx.fillRect(0,0,75,75);
+    // ctx.fillStyle = '#6C0';
+    // ctx.fillRect(75,0,75,75);
+    // ctx.fillStyle = '#09F';
+    // ctx.fillRect(0,75,75,75);
+    // ctx.fillStyle = '#F30';
+    // ctx.fillRect(75,75,75,75);
+    // ctx.fillStyle = '#FFF';
+
+    // // 设置透明度值
+    // ctx.globalAlpha = 0.2;
+
+    // // 画半透明圆
+    // for (var i=0;i<7;i++){
+    //     ctx.beginPath();
+    //     ctx.arc(75,75,10+10*i,0,Math.PI*2,true);
+    //     ctx.fill();
+    // }
+
+    // 绘制文本
+    // ctx.font = "48px serif"
+    ctx.font = "24px serif";
+    // ctx.textAlign = 'center'  // 文字对齐方式，以设置x的值为标准
+    //设置基线对齐方式，，
+    ctx.textBaseline = 'top'
+    ctx.lineHeight = 0
+    // ctx.strokeText("Hello world", 10, 50);
+    ctx.fillText("Hello world", 0, 0);
+
+
+</script>
+<style>
+    canvas{
+        border: 1px solid black;
+    }
+</style>
+</html>

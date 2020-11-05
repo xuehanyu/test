@@ -1,5 +1,5 @@
 
-// 表示将a导出，会将其放入到一个对象当中
+// 表示将a导出（导出的是a， 并不是1），会将其放入到一个对象当中
 export let a = 1
 export let b = 2
 export let c = 1
@@ -9,7 +9,9 @@ setInterval(() => {
 }, 1000);
 
 //  获取一起导出
-
+let a = 1
+let b = 2
+let c = 3
 export { a, b, c }    //  导出的不是一个对象的简写，导出的是a、b、c 的变量列表
 
 // 默认导出，default ,在一个模块只能默认导出1次
@@ -20,7 +22,7 @@ export default { a:1, b:2 }
 //  等价于
 let obj = { a:1, b:2 }
 export {
-    obj as default
+    obj as default  // 适用于as可以重命名
 }
 
 
@@ -37,4 +39,4 @@ export * from './x';
 export { y } from './y'   //  在文件中导出部分内容
 
 
-console.log(y)   //  没有使用import, 没有声明的作用
+console.log(y)   //  没有使用import, 没有声明的作用，所以不能使用

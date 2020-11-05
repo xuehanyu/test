@@ -65,17 +65,6 @@ var Animal = (function(){
 })()
 
 
-// function Animal(){  //  es6中规定类只能通过new调用
-//     this.name = '熊猫'  //  实例上的属性
-// }
-
-// Animal.prototype.say = function(){
-//     console.log('kkkkk')
-// }
-// Animal.prototype.eat = function(){
-    
-// }
-
 // Animal.a = 1;
 // Animal.b = 2   // 通过类来调用的叫静态属性 / 方法
 let animal = new Animal()  // 构造函数中的this默认指向实例

@@ -6,8 +6,41 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./bind.js">
-    
+    <script>
+        Function.prototype.bind = function(context){
+            let that = this
+            let bindArgs = Array.prototype.slice.call(arguments,1)
+            function Fn(){ }
+            function bindFn(){
+                let args = Array.prototype.slice.call(arguments)
+                that.apply((this instanceof bindFn) ? this : context, bindArgs.concat(args))
+            }
+            Fn.prototype = this.prototype
+            bindFn.prototype = new Fn()
+            return bindFn
+        }
+        var obj = {
+            name: 'lisi'
+        }
+        var name = '哈哈'
+        function fn (name , age){
+            this.age = 0
+            console.log(this) 
+            console.log(this.name + '养了' + name + age + '岁了')
+        }
+        fn.prototype.say = function(){
+            console.log('say')
+        }
+        let bindFn = fn.bind(obj,'猫')
+        
+        let instance = new bindFn(9)
+        instance.say()
+
+        // 1) bind方法啊可以改变this指向，并返回一个函数
+        // 2）可以保留参数，并且多次传递
+        // 3) bind 返回的方法可以通过new
+
+
     </script>
 </body>
 </html>

@@ -32,13 +32,13 @@
 // let instance = new bindFn(1,3)
 // console.log(instance.flag)
 
-// //  1 bind方法可以绑定this指向，
+// //  1 bind方法可以绑定this指向，绑定
 // //  2，bind方法返回一个并定后的函数（高阶函数）
 
 // //  3 bind还有一个特点可以保存参数
 
 // // 4. bind返回的函数可以当成类 调用  new bindFn()  如果绑定的函数呗new, 当前函数的this就是当前的实力
-// //  5 new出来的结果可以继承原有类
+// //  5 new出来的结果可以继承原有类的原型
 
 
 
