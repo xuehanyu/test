@@ -7,16 +7,17 @@ const REJECT = 'REJECT'
 // resolvePromise(promise2, x,resolve, reject)
 function resolvePromise(promise2, x, resolve, reject){// 判断x的状态，让promise的状态是成功态还是失败态
     //  此方法为了兼容所有的promise（比如我的库中使用了es6的promise）
+    //1） 不能引用同一个对象，可能会造成死循环
     if(promise2 === x){
        return reject(new TypeError(' Chaining cycle detected for promise #<Promise>---')) 
     }
     // If both resolvePromise and rejectPromise are called, or multiple calls to the same argument are made, the first call takes precedence, and any further calls are ignored.
-    let called
-    //  判断函数的类型, 只有是对象或者是函数才有可能是promise
+    let called  // 
+    //  2）判断函数的类型, 只有是对象或者是函数才有可能是promise
     if(typeof x ==='object' && x!==null || typeof x === 'function'){
         //  有可能是promise，判断then 是不是一个方法
-        try {
-            let then = x.then
+        try { // 因为then方法 可能使用getter来定义的，别人写的可能会抛出异常，所以需要try / catch
+            let then = x.then  
             if(typeof then ==='function'){ // then是个函数
                 then.call(x, y=>{  // 调用then方法，this指向x，第一个是成功的回调，第二个是失败的回调
                     // resolve(y)
@@ -151,6 +152,7 @@ class Promise {
     }
 }
 
+// ce
 Promise.defer = Promise.deferred = function(){
     let dfd = {}
     dfd.promise = new Promise((resolve,reject)=>{
