@@ -59,11 +59,81 @@
 
 
 
+// 1 let 配合 {}  产生会计作用域
+// for(let i=0; i<5; i++){
+//     setTimeout(()=>{
+//         console.log(i)
+//     },1000)
+// }
+
+// for(var i=0; i<5; i++){
+//     (function(i){
+//         setTimeout(()=>{
+//             console.log(i)
+//         },1000)
+//     })(i)
+// }
+
+// 利用setTimeout的第三个函数
+// for(var i=0; i<5; i++){
+//     setTimeout((j)=>{
+//         console.log(j)
+//     },1000, i)
+// }
+
+// function test() {
+//     var num = [] 
+//     var i
+//     for (i = 0; i < 10; i++) {
+//         num[i] = function () {
+//             console.log(i)
+//         }
+//     }
+//     return num[5]
+// }
+// test()()  //  10
 
 
+// var test = (function () {
+//     var num = 0
+//     return () => {
+//         return num++
+//     }
+// }())
+// // console.log(test)   //   test ----->  ()=>{ return num++ }
+// for (var i = 0; i < 10; i++) {
+//     test()     //  i = 0 0 i = 9 9 
+// }
 
 
+// console.log(test())   // 10
 
+// var a = 1; 
+// function test() {
+//     a = 2;
+//     return function () {
+//         console.log(a);
+//     }
+//     var a = 3;
+// }
+// test()();
+
+function foo(a, b) {
+    console.log(b); 
+    return {
+        foo: function (c) {
+            return foo(c, a);
+        }
+    }
+}
+// var func1 = foo(0); 
+// func1.foo(1);    // 0
+// func1.foo(2);    // 0
+// func1.foo(3);    // 0
+var func2 = foo(0).foo(1).foo(2).foo(3); 
+var func3 = foo(0).foo(1); 
+func3.foo(2);
+func3.foo(3);
 
 
 

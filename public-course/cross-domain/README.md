@@ -13,6 +13,6 @@
 - document.domain(子域和父域通信)
 - window.name
 - location.hash
-- http-proxy (代理，所谓中间件，反向代理)
+- http-proxy (webpack代理，所谓中间件，反向代理)
 - nginx
 - websocket

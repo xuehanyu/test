@@ -10,8 +10,8 @@
 </body>
 <script>
     let xhr = new XMLHttpRequest;
-    document.cookie ='name=jack'
-    xhr.withCredentials = true
+    document.cookie ='name=jack'  // 不允许跨域
+    xhr.withCredentials = true   // 携带凭证
     xhr.open('PUT','http://localhost:4000/getData',true)
     xhr.setRequestHeader('name','liu')
     xhr.onreadystatechange = function(){

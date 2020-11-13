@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 10px solid black;
+            background: yellow;
+            /* box-sizing: content-box; */
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="box"></div>
+</body>
+<script>
+    let element =  document.getElementById('box')
+    // console.log(element.style.width)  // 只能获取内联样式
+    // window.getComputedStyle(ele).width/height
+    // console.log(window.getComputedStyle(element).width)
+    //
+    console.log(element.getBoundingClientRect().width)
+</script>
+</html>
