@@ -13,7 +13,7 @@ let cookieParser = require('cookie-parser')
 app.use(cookieParser())  // req.cookies 就可以取到
 app.use(bodyParser.urlencoded({ extended: true })) // 告诉中间件 将jq传过来的参数a=1&b=2这样的形式转换成 {a:1,b:2} = req.body
 
-let userList = [{ username: 'zfpx', password: 'zfpx',money:'10000' }, { username: 'jack', password: '123',money:'100' }]
+let userList = [{ username: 'zfpx', password: 'zfpx',money:10000 }, { username: 'jack', password: '123',money:100 }]
 let SESSION_ID = 'connect.sid'
 let session = {}
 app.post('/api/login', function (req, res) {
@@ -29,10 +29,9 @@ app.post('/api/login', function (req, res) {
     } else {
         res.json({ code: 1, error: '该用户不存在' })
     }
-    console.log(username, password)
 })
 
-// 1）！！！s反射型 xss http://localhost:3000/welcome?type=%3Cscript%3Ealert(document.cookie)%3C/script%3E chrome发现异常会哟欧xss屏蔽功能
+// 1）！！！反射型 xss http://localhost:3000/welcome?type=%3Cscript%3Ealert(document.cookie)%3C/script%3E chrome发现异常会哟欧xss屏蔽功能
 
 // 一般情况下会让cookie在前端不可获取，并不是解决xss 的方案， 只是降低受损的范围  { httpOnly: false }
 // 诱导用户自己点开（一次性）
@@ -77,15 +76,20 @@ app.post('/api/transfer', function(req, res){
     let r =  session[req.cookies[SESSION_ID]] || {}
     if(r.user){
         let {target, money} =req.body
+        console.log(target, money)
         money = Number(money)
-        userList.forEach(u =>{
+        userList.map(u =>{
            if( u.username === r.user.username){
+               
                 u.money -= money
+                console.log(1,u.money)
            }
-           if(u.username = target){
-               u.money +=money
+           if(u.username === target){
+               u.money = u.money + money
+               console.log(2, u.money)
            }
         })
+        console.log(userList, '0987656789')
         res.json({code:0})
     } else{
         res.json({code:1, error:'用户未登录'})
@@ -96,4 +100,4 @@ app.post('/api/transfer', function(req, res){
 app.listen(3000)
 
 
-// 跨站请求伪造，，钓鱼网站
+// 跨站请求伪造，，钓鱼网站， 给个吸引的网站

