@@ -32,8 +32,9 @@ app.post('/api/login', function (req, res) {
     console.log(username, password)
 })
 
-// 反射型 xss http://localhost:3000/welcome?type=%3Cscript%3Ealert(document.cookie)%3C/script%3E
-// 一般情况下会让cookie在前端不可获取，并不是解决xss 的方案， 只是降低受损的范围
+// 1）！！！s反射型 xss http://localhost:3000/welcome?type=%3Cscript%3Ealert(document.cookie)%3C/script%3E chrome发现异常会哟欧xss屏蔽功能
+
+// 一般情况下会让cookie在前端不可获取，并不是解决xss 的方案， 只是降低受损的范围  { httpOnly: false }
 // 诱导用户自己点开（一次性）
 // 查询参数， 可以加上 encodeURIComponent 方式解决
 
@@ -42,7 +43,7 @@ app.get('/welcome', function (req, res) {
 })
 
 
-// 用户评论信息
+//持久化攻击 ！！！！用户评论信息
 let comments = [{ username: 'zfpe', content: "欢迎欢迎" }, { username: 'jack', content: "哈哈哈哈哈" }]
 
 app.get('/api/list', function (req, res) {
@@ -91,7 +92,7 @@ app.post('/api/transfer', function(req, res){
     }
 })
 
-//  xss 存储型，恶意的脚本存储到服务器上，所有人访问时都会造成攻击，比发射型和DOM-Base 范围更大
+//3）！！！！  xss 存储型，恶意的脚本存储到服务器上，所有人访问时都会造成攻击，比发射型和DOM-Base 范围更大
 app.listen(3000)
 
 
