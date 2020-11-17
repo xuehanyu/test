@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id='btn' style="width:200px">快速点击</button>
+</body>
+<script>
+    let btn = document.getElementById('btn')
+    // 此方法的实现有问题，当执行完一个周期，再点击一下时，最后这一下不执行
+    // function throttle(fn, wait){
+    //     let previous = 0
+    //     return function(){
+    //         let now = Date.now()
+    //         if(now - previous > wait){
+    //             fn.apply(this, arguments)
+    //             previous = now
+    //         }
+    //     }
+    // }
+
+     // 实现underscore中的源码
+    function throttle(fn, wait, options){
+        let args, context, timeout;
+        let previous = 0;
+        let later = () => {
+            previous = options.leading === false ? 0 : Date.now()
+            fn.apply(context, args)
+        }
+        let throtteld = function() {
+            context = this
+            args = arguments
+            let now = Date.now()
+            if(!previous && options.leading === false) previous = now;
+            let remaining = wait - (now-previous)
+         
+            if(remaining <=0){ 
+                if(timeout) {
+                    clearTimeout(timeout)
+                    timeout = null
+                }
+                fn.apply(context, arguments)
+                previous = now
+            } else if(!timeout && options.trailling !== false) {
+                timeout = setTimeout(later, remaining)  
+            }
+        }
+
+        return throtteld
+
+    }
+        //  trailling最后一次需要执行，当不传此配置的时候，默认也执行  ; 延迟 第一次点击不生效leading 第一次不执行
+    btn.addEventListener('click', throttle(()=>{console.log('click')}, 1000, {leading: false}))
+</script>
+</html>

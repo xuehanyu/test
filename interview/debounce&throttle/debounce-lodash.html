@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" style="width: 100px;">点击</button>
+</body>
+<script src="./index.js"></script>
+<script>
+    function logger(){
+        console.log('logger')
+    }
+    // function debounce(fn, wait, immediate){
+    //     let timeout
+    //     return function(){
+    //         clearTimeout(timeout)
+    //         if(immediate){
+    //             let callNow = !timeout
+    //             if(callNow) fn.apply(this, arguments)
+    //         }
+    //         timeout = setTimeout(()=>{
+    //             fn.apply(this, arguments)
+    //             timeout = null
+    //         }, wait)
+    //     }
+    // }
+    // debounce 的第三个参数true 一上来就要执行一次
+    // btn.addEventListener('click',debounce(logger, 1000, true) )
+</script>
+</html>
