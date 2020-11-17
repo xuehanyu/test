@@ -37,7 +37,7 @@ function curring(fn, arr = []){
         
     }
 }
-let currFn = curring(add,[1,3])
+let currFn = curring(add)
 
 console.log(currFn(2)(4)(6));
 // console.log(currFn(12)(3,4)(5)(8))
@@ -70,3 +70,26 @@ function unCurring(fn){
 
 let toString = unCurring(Object.prototype.toString)
 console.log(toString(true))
+
+console.log(Object.prototype.toString.call(true))
+
+
+function add(a, b, c, d, e){
+	return a + b + c + d + e
+}
+function curring(fn){
+  let args = [].slice.call(arguments, 1)
+  let length = fn.length
+  return function (){
+  	let innerArgs = [].slice.call(arguments, 0)
+    let allArgs = args.concat(innerArgs)
+    if(args.length <  length){
+    	return curring(fn, ...allArgs)
+    }else {
+    	return fn(...allArgs)
+    }
+  }
+}
+let curryFn = curring(add)
+let r8  = curryFn(1)(2)(3)(4,5)
+console.log(r8)

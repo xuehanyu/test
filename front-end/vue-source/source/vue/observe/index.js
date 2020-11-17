@@ -82,6 +82,19 @@ function createWatcher(vm, key, handler, opts) {
     vm.$watch(key, handler, opts)
 }
 function initWatch(vm) {
+     // msg(newValue, oldValue){
+        //     console.log(newValue, oldValue)
+        // }
+
+        //  watch 还可以有handler的写法
+        // msg:{
+        //     handler: function (newValue, oldValue){
+        //         console.log(newValue, oldValue)
+        //     },
+        //     immediate: true
+        // }
+
+
     // TODO 获取用户传入的watch
     let watch = vm.$options.watch
     // TODO 获取handler 就是对应的函数
