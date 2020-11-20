@@ -14,15 +14,15 @@ function render (element, container, componentInstance){
     }
     let props, type;
     props =  element.props;
-    type = element.type
+    type = element.type  // type可能是函数组件或者类组件，还有可能是元素，一个普通对象
     let isReactComponent = type.isReactComponent
-    if(isReactComponent){ 
+    if(isReactComponent){   // 类组件
         // componentInstance.isReactComponent = true
         componentInstance =  new type(props)
         element = componentInstance.render(componentInstance)
         props = element.props
         type = element.type
-    }else if(typeof type === 'function'){
+    }else if(typeof type === 'function'){  // 函数组件
         element = type(props)  
         props = element.props
         type = element.type
