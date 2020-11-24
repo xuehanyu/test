@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style >
+        .container{
+            width: 100%;
+            height: 100vh;
+            background: yellow;
+        }
+        .modal{
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events:  none;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .modal-contaner{
+            width: 500px;
+            height: 300px;
+            border-radius: 10px;
+            background: red;
+            position: absolute;
+            margin-top: 50%;
+            margin-left: 50%;
+            left: -250px;
+            top: -150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal:target {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .close-btn{
+            width: 60px;
+            height: 30px;
+            border-radius: 8px;
+            background: white;
+            text-align: center;
+            position: absolute;
+            bottom: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 用css实现一个弹窗 -->
+    <!-- 
+        1、利用a标签的 href属性，利用锚点
+        2、利用:target获取当前目标元素
+        3、pointer-events 特定情况下可以成为鼠标的目标元素
+     -->
+    <div class="container">
+        <a class="btn" href="#open-modal">打开弹窗</a>
+    </div>
+    <div class="modal" id="open-modal">
+        <div class="modal-contaner">
+            <div class="title"> 弹窗title </div>
+            <div class="content">content</div>
+            <a href="#" class="close-btn">close</a>
+        </div>
+    </div>
+</body>
+</html>
