@@ -82,8 +82,41 @@
 // 输出：[2,3,5,4,1,7] 
 // 解释：由于 x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 ，所以答案为 [2,3,5,4,1,7]
 
-var shuffle = function(nums, n) {
-    return nums.map((_v,i,arr)=>i%2? arr[n+Math.floor(i/2)]: arr[i/2])
-};
-const result = shuffle([2,5,1,3,4,7], 3)
-console.log(result)
+// var shuffle = function(nums, n) {
+//     return nums.map((_v,i,arr)=>i%2? arr[n+Math.floor(i/2)]: arr[i/2])
+// };
+// const result = shuffle([2,5,1,3,4,7], 3)
+// console.log(result)
+
+
+
+
+let obj = { 
+	name: 'jack'
+}
+
+function fn(age, address){
+	console.log(this.name, age, address )	
+}
+
+fn.prototype.say = function(){
+	console.log('say')
+}	
+
+let bindFn = fn.bind(obj, '18')
+let o =  new bindFn('北京')
+o.say()
+// Function.prototype.bind = function(context){
+//     context = context || window
+//     let fn = this
+//     let outerArgs = [].slice.call(arguments, 1)
+//     let Fn = function(){}
+//     let bindFn = function(){
+//         let innerArgs = [].slice.call(arguments)
+//         const allArgs = [...outerArgs, ...innerArgs]
+//         fn.apply( this instanceof bindFn ? this : context, allArgs )
+//     }
+//     Fn.prototype = fn.prototype
+//     bindFn.prototype = new Fn()
+//     return bindFn
+// }

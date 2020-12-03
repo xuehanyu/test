@@ -122,3 +122,87 @@ var decompressRLElist = function(nums) {
     return arr
 };
 // console.log(decompressRLElist([1,2,3,4]))
+
+
+/**
+ * 1266. 访问所有点的最小时间
+ * 平面上有 n 个点，点的位置用整数坐标表示 points[i] = [xi, yi]。请你计算访问所有这些点需要的最小时间（以秒为单位）。
+ * 每一秒沿水平或者竖直方向移动一个单位长度，或者跨过对角线（可以看作在一秒内向水平和竖直方向各移动一个单位长度）。
+ * 必须按照数组中出现的顺序来访问这些点。
+ */
+/*
+ * 输入：points = [[1,1],[3,4],[-1,0]]
+    输出：7
+    解释：一条最佳的访问路径是： [1,1] -> [2,2] -> [3,3] -> [3,4] -> [2,3] -> [1,2] -> [0,1] -> [-1,0]   
+    从 [1,1] 到 [3,4] 需要 3 秒 
+    从 [3,4] 到 [-1,0] 需要 4 秒
+    一共需要 7 秒
+ */
+
+var minTimeToVisitAllPoints = function(points) {
+    let time = 0
+    points.reduce((pre, cur)=>{
+        const [x1,y1] = pre
+        const [x2,y2] = cur
+        time+= Math.max(Math.abs(x2-x1), Math.abs(y2-y1))
+        return cur
+    })
+    return time
+};
+
+// console.log(minTimeToVisitAllPoints([[1,1],[3,4],[-1,0]]))
+
+/**
+ * 1295. 统计位数为偶数的数字
+ * 给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。
+ */
+/**
+ * 输入：nums = [12,345,2,6,7896]
+ * 输出：2
+ */
+var findNumbers = function(nums) {
+    // let count = 0
+    // for(let i=0; i<nums.length; i++){
+    //     if((nums[i]+ '').length %2 === 0) count++
+    // }
+    // return count
+    return nums.filter(item => String(item).length % 2 ===0).length
+};
+// console.log(findNumbers([12,345,2,6,7896]))
+
+
+/**
+ * 1588. 所有奇数长度子数组的和
+ */
+/*
+    输入：arr = [1,4,2,5,3]
+    输出：58
+    解释：所有奇数长度子数组和它们的和为：
+    [1] = 1
+    [4] = 4
+    [2] = 2
+    [5] = 5
+    [3] = 3
+    [1,4,2] = 7
+    [4,2,5] = 11
+    [2,5,3] = 10
+    [1,4,2,5,3] = 15
+    我们将所有值求和得到 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58
+*/
+var sumOddLengthSubarrays = function(arr) {
+    if(arr.length % 2 === 0){
+        return arr.reduce((pre, cur)=> pre + cur)
+    } else {
+        let n = (arr.length + 1)/2
+        let count = 0
+        for(let j =0 ;j<arr.length; j++){
+            for(let i=0; i < n; i++){   // 0 1 2
+           
+            } 
+            // count = count + (arr[j] + (arr[j-i] ? arr[j-i] : 0) + (arr[j+i] ? arr[j+i] : 0))
+        }
+        return count
+    }
+
+};
+console.log(sumOddLengthSubarrays([1,4,2,5,3]))

@@ -13,7 +13,7 @@
 
 ## webapck 打包文件
 
-- webpack(核心打包用)  webpack-cli(解析命令行can 睡)  webpack-dev-server(在开发环境下帮我们提供一个开发环境 支持更新)
+- webpack(核心打包用)  webpack-cli(解析命令行 )  webpack-dev-server(在开发环境下帮我们提供一个开发环境 支持更新)
 - babel-loader（webpack和babel的一个桥梁） @babel/core（babel的核心模块） @babel/preset-env(可以把高级语法转换成es5语法) 
 style-loader 不支持服务器端渲染
 - vue-style-loader(vue解析样式 插入到页面中)  css-loader
