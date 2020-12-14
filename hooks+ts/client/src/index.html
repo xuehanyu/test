@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hooks + ts</title>
+</head>
+<body>
+    <script>
+        (function(){
+           function refreshRem(){
+               // 如果说屏幕宽度是750px  1rem = 100px， 
+               // 16px 它是chrome浏览器的默认值， 因为16px不好计算，100px容易计算
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px'
+                console.log(document.documentElement.style.fontSize)
+           } 
+           refreshRem()
+           window.addEventListener('resize', refreshRem, false)
+        })()
+    </script>
+    <div id="root"></div>
+</body>
+
+</html>
