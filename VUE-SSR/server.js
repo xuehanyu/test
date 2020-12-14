@@ -20,17 +20,13 @@ let renderer = ServerRenderer.createBundleRenderer(ServerBundle, {
 
 router.get('/', async ctx=>{
     ctx.body = await new Promise((resolve, reject) => {
-        renderer.renderToString((err, data)=>{
-            console.log(err, 'errr')
+        renderer.renderToString({url: ctx.url}, (err, data)=>{
             if(err){
                 reject(err)
             } else{
                 resolve(data)
             }
         }) 
-    })
-    .catch(err=>{
-        console.log(err)
     })
 })
 

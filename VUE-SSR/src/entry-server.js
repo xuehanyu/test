@@ -22,7 +22,5 @@ export default context => {
             // promise 应该resolve 应用程序实例，以便它可以渲染
             resolve(app)
         }, reject)
-    }).catch((err)=>{
-        console.log(err)
     })
 }
