@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>柯里化</title>
 </head>
+
 <body>
-    
+
 </body>
 <script>
     // var curry = function(fn){
@@ -24,24 +26,23 @@
     // console.log(addCurry(2))
     function sub_curry(fn) {
         var args = [].slice.call(arguments, 1);
-        return function() {
+        return function () {
             return fn.apply(this, args.concat([].slice.call(arguments)));
         };
     }
-    function curry (fn, length){
-        debugger
+    function curry(fn, length) {
         length = length || fn.length
         var slice = Array.prototype.slice
-        return function(){
-            if(arguments.length<length){
+        return function () {
+            if (arguments.length < length) {
                 var combined = [fn].concat(slice.call(arguments))
                 return curry(sub_curry.apply(this, combined), length - arguments.length)
-            }else{
+            } else {
                 return fn.apply(this, arguments)
             }
         }
     }
-    var fn = curry(function(a, b, c) {
+    var fn = curry(function (a, b, c) {
         return [a, b, c];
     });
 
@@ -51,4 +52,5 @@
     // fn("a")("b", "c") // ["a", "b", "c"]
 
 </script>
+
 </html>
