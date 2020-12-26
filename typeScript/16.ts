@@ -1,3 +1,3 @@
-// 类型声明
-
-let age
+export { }
+enum Color { Red, Green, Blue }
+let c: Color = Color.Green;
