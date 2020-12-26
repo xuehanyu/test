@@ -100,7 +100,7 @@ function fn(age, address){
 }
 
 fn.prototype.say = function(){
-	console.log('say')
+    console.log('say222')
 }	
 
 let bindFn = fn.bind(obj, '18')

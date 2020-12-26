@@ -101,7 +101,7 @@ function lowercaseFirstString (str) {
   return res
 }
 function lowercaseObject (object) {
-  let res = {}
+  let res ={}
   const keys = Object.keys(object)
   keys.forEach(key => {
     res[lowercaseFirstString(key)] = object[key]
