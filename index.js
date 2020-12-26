@@ -100,12 +100,14 @@ function fn(age, address){
 }
 
 fn.prototype.say = function(){
-    console.log('say222')
+    console.log('sayoooo')
 }	
 
 let bindFn = fn.bind(obj, '18')
 let o =  new bindFn('北京')
 o.say()
+
+console.log('oooooo')
 // Function.prototype.bind = function(context){
 //     context = context || window
 //     let fn = this
