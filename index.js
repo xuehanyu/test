@@ -17,17 +17,17 @@
 // 解释：动态和计算过程为 [1, 1+2, 1+2+3, 1+2+3+4] 
 // const nums = [1, 2, 3, 4]
 // var runningSum = function(nums) {
-    // 1）第一种方法
-    // let newArr = []
-    // nums.reduce((pre, cur, i) => {
-    //     let num = pre + cur
-    //     return newArr[i] = num
-    // }, 0) 
-    // return newArr
-    // 2) 第二种防范
-    // for(let i=1; i<nums.length; i++){
-    //     nums[i] += nums[i-1]
-    // }
+// 1）第一种方法
+// let newArr = []
+// nums.reduce((pre, cur, i) => {
+//     let num = pre + cur
+//     return newArr[i] = num
+// }, 0) 
+// return newArr
+// 2) 第二种防范
+// for(let i=1; i<nums.length; i++){
+//     nums[i] += nums[i-1]
+// }
 // };
 
 // const result = runningSum(nums)
@@ -45,16 +45,16 @@
 // 对于 nums[3]=2 存在一个比它小的数字：（1）。 
 // 对于 nums[4]=3 存在三个比它小的数字：（1，2 和 2）。
 // var smallerNumbersThanCurrent = function(nums) {
-    // // 1) 双重循环
-    // let arr = []
-    // for(let i=0; i<nums.length; i++){
-    //     let count = 0
-    //     for(let j=0; j<nums.length; j++){     
-    //         if(nums[i] > nums[j]) count ++
-    //     }
-    //     arr.push(count)
-    // }
-    // return arr
+// // 1) 双重循环
+// let arr = []
+// for(let i=0; i<nums.length; i++){
+//     let count = 0
+//     for(let j=0; j<nums.length; j++){     
+//         if(nums[i] > nums[j]) count ++
+//     }
+//     arr.push(count)
+// }
+// return arr
 //     let newArr = [];
 //     let oldNums = [...nums]
 //     nums.sort((a, b)=> b-a)
@@ -70,7 +70,7 @@
 //         newArr[i] = map.get(oldNums[i])
 //     }
 //     return newArr
-   
+
 // };
 
 // const result = smallerNumbersThanCurrent([8,1,2,2,3])
@@ -91,20 +91,20 @@
 
 
 
-let obj = { 
-	name: 'jack'
+let obj = {
+    name: 'jack'
 }
 
-function fn(age, address){
-	console.log(this.name, age, address )	
+function fn(age, address) {
+    console.log(this.name, age, address)
 }
 
-fn.prototype.say = function(){
+fn.prototype.say = function () {
     console.log('sayoooo')
-}	
+}
 
 let bindFn = fn.bind(obj, '18')
-let o =  new bindFn('北京')
+let o = new bindFn('北京')
 o.say()
 
 console.log('oooooo')
