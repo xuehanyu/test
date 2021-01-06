@@ -40,18 +40,18 @@ const router = new VueRouter({
 
 
 //  vue 路由钩子的实现，，回调函数， express框架的逻辑是一样的
-router.beforeEach((to, from, next)=>{
-  console.log(1)
-  setTimeout(()=>{
-    next()
-  }, 1000)
-})
+// router.beforeEach((to, from, next)=>{
+//   console.log(1)
+//   setTimeout(()=>{
+//     next()
+//   }, 1000)
+// })
 
-router.beforeEach((to, from, next)=>{
-  console.log(2)
-  setTimeout(() => {
-    next()
-  }, 1000);
-})
+// router.beforeEach((to, from, next)=>{
+//   console.log(2)
+//   setTimeout(() => {
+//     next()
+//   }, 1000);
+// })
 
 export default router
