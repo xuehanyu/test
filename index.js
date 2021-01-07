@@ -92,7 +92,7 @@
 
 
 let obj = {
-    name: 'jack'
+    name: 'jackjackjackjackjack'
 }
 
 function fn(age, address) {
