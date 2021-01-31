@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    // 如果应用加载，刚开始加载A应用 window.a  B应用(切换的时候也可以访问window.a) 造成全局污染
+    // 单应用切换 实现隔离，当切换应用的时候，清掉  沙箱  创造一个干净的环境给这个子应用使用，当切换时  可以选择丢弃属性和恢复属性
+    // JS 沙箱 proxy
+
+    // 快照沙箱 1年前拍一张， 再拍一张 将区别保存起来 再回到一年前， 还原在把区别应用一年前
+
+    class SnapshotSandBox{
+        constructor(){
+            this.proxy = window
+            this.modifyPropsMap = {}  // 记录在window上的修改
+            this.active()  // 默认激活状态
+        }
+        active() {  // 激活
+            // 拍照
+            this.windowsnapShop = {}  // 用于存储window上的属性
+            for(let prop in window){
+                if(window.hasOwnProperty(prop)){
+                    this.windowsnapShop[prop] = window[prop]
+                }
+            }
+
+            Object.keys(this.modifyPropsMap).forEach(p => {
+                window[p] = this.modifyPropsMap[p]
+            })
+
+        }
+
+        inActive() {  // 失活
+            for(let prop in window){
+                if(window.hasOwnProperty(prop)){
+                    if(window[prop] !== this.windowsnapShop[prop]){
+                        this.modifyPropsMap[prop] = window[prop]
+                        window[prop] = this.windowsnapShop[prop]
+                    }
+                }
+            } 
+        }
+    }
+
+    let sandBox = new SnapshotSandBox();
+
+    (function(window){
+
+        window.a = 1
+        window.b = 1
+        console.log(window.a, window.b)
+        sandBox.inActive()
+        console.log(window.a, window.b)
+        sandBox.active()
+        console.log(window.a, window.b)
+
+    })(sandBox.proxy)   // sandox.proxy就是window
+ 
+</script>
+</html>

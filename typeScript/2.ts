@@ -10,3 +10,12 @@ class Greeting {
 
 
 let greeter = new Greeting('world')
+
+
+interface A {
+    name: string
+}
+
+interface A {
+    nam: number
+}
