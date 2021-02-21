@@ -111,9 +111,9 @@ interface Person8 {
 //     [key in keyof Person8]?: Person8[key]
 // }
 
-type Partial<T> = {   // Partial的源码
-    [key in keyof T]?: T[key]
-}
+// type Partial<T> = {   // Partial的源码
+//     [key in keyof T]?: T[key]
+// }
 type Person9 = Partial<Person8>
 
 

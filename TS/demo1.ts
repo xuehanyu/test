@@ -82,3 +82,17 @@ console.log(n);
 
 //4 泛型的应用
 //4.1 keyof
+
+// 编译之后
+
+
+
+let myAdd : (x: number, y: number) => number =  (x: number, y: number): number =>{
+    return x+y
+}
+
+
+type A<T = string> = Array<T>;
+const aa: A = [1]; // type 'number' is not assignable to type 'string'.
+const bb: A = ["1"]; // ok
+const cc: A<number> = [1]; // ok
